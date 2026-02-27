@@ -74,14 +74,13 @@ sudo tee /etc/photoframe/config.json > /dev/null << 'CONFIGEOF'
 CONFIGEOF
 
 # Copy logo
-if [ -f "$INSTALL_DIR/assets/arena.svg" ]; then
-    sudo cp "$INSTALL_DIR/assets/arena.svg" /etc/photoframe/
+if [ -f "$INSTALL_DIR/arena.svg" ]; then
+    sudo cp "$INSTALL_DIR/arena.svg" /etc/photoframe/
 fi
 
-# Copy fonts to home directory
-if [ -f "$INSTALL_DIR/assets/Areal-Bold.ttf" ]; then
-    cp "$INSTALL_DIR/assets/Areal-Bold.ttf" "$HOME/"
-    cp "$INSTALL_DIR/assets/Areal-Regular.ttf" "$HOME/"
+if [ -f "$INSTALL_DIR/Areal-Bold.ttf" ]; then
+    cp "$INSTALL_DIR/Areal-Bold.ttf" "$HOME/"
+    cp "$INSTALL_DIR/Areal-Regular.ttf" "$HOME/"
 fi
 
 echo "[6/8] Setting up WiFi portal..."
