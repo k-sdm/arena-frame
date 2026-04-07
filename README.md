@@ -6,7 +6,7 @@ Bring an Are.na channel into your space
 Arena Frame is an open-source object that connects to [Are.na](https://are.na) and displays a channel's content on a colour e-ink screen. Choose between cycling through blocks or displaying new ones live as they come in.
 
 Revisit your visual references in a slower way, let your research surface throughout the day.
-Connect a shared channel with freinds and send each other virtual postcards. We're curious to see what you do with it!
+Connect a shared channel with friends and send each other virtual postcards. We're curious to see what you do with it!
 
 ## Build your Frame
 
@@ -17,13 +17,13 @@ To build a frame, you'll need the following components
 | - | - |
 | Raspberry Pi Zero 2 W (with presoldered header pins) | [UK](https://shop.pimoroni.com/products/raspberry-pi-zero-2-w?variant=42101934587987) [US](https://www.pishop.us/product/raspberry-pi-zero-2w-with-headers/) |
 | Inky Impression display (available in 4", 7.3" and 13.3" flavours | [UK](https://shop.pimoroni.com/products/inky-impression?variant=55186435244411) [US](https://www.pishop.us/product/inky-impression-7-3-2025-edition/) |
-| MicroSD card (16GB or arger)  | [UK](https://thepihut.com/products/sandisk-microsd-card-class-10-a1) [US](https://www.pishop.us/product/class-10-microsd-card-32-gb-blank-retail/) |
+| MicroSD card (16GB or larger) | [UK](https://thepihut.com/products/sandisk-microsd-card-class-10-a1) [US](https://www.pishop.us/product/class-10-microsd-card-32-gb-blank-retail/) |
 | 5V DC Micro USB power source (You might already have the bits for this around!) | [UK](https://shop.pimoroni.com/products/raspberry-pi-12-5w-micro-usb-power-supply?variant=39493050237011) [US](https://www.pishop.us/product/wall-adapter-power-supply-micro-usb-2-4a-5-25v) |
 
 ---
 
-### Settng up the software
-The easiest way to do this is to flash the premade image onto your sd card!
+### Setting up the software
+The easiest way to do this is to flash the premade image onto your SD card.
 
 ### Step 1: Download the Image
 
@@ -46,38 +46,50 @@ The easiest way to do this is to flash the premade image onto your sd card!
 6. Click **Next** and start writing
 7. Wait for it to complete, then remove the SD card
 
+<details>
+   <summary>See step-by-step images 🖼️</summary>
+
+   |<a href="./images/PI_IMAGER_1.png"><img style="display: block; width: 450px;" src="./images/PI_IMAGER_1.png"/></a>|<a href="./images/PI_IMAGER_2.png"><img style="display: block; width: 450px;" src="./images/PI_IMAGER_2.png"/></a>|
+   |--|--|
+   |<a href="./images/PI_IMAGER_3.png"><img style="display: block; width: 450px;" src="./images/PI_IMAGER_3.png"/></a>|<a href="./images/PI_IMAGER_4.png"><img style="display: block; width: 450px;" src="./images/PI_IMAGER_4.png"/></a>|
+</details>
+
 ### Step 4: Assemble and Power On
 
 1. Insert the MicroSD card into your Raspberry Pi
 2. Connect the Inky Impression display to the GPIO pins
 3. Connect power via either micro USB port
-4. Wait about 60 seconds — the white LED will start blinking
+4. Wait about 60 seconds — the white LED on the display will start blinking
 
 ### Step 5: Connect and Configure
 
 1. On your phone or laptop, open WiFi settings
 2. Connect to the network **ArenaFrame-Setup** (password: `arenaframe`)
-3. A configuration page should open automatically
-   - If it doesn't, open a browser and go to `http://192.168.4.1`
-4. Select your WiFi network from the dropdown, or select 'Other' and enter it's name if it doesnt show up
-5. Enter your WiFi password
-6. Enter your Are.na channel slug — this is the last part of your channel URL
+3. A configuration page should open automatically. If it doesn't, try opening a browser
+
+
+<details>
+   <summary>See the setup portal 🖼️</summary>
+
+   <a href="./images/portal.png"><img style="display: block; width: 300px;" src="./images/portal.png"/></a>
+</details>
+
+4. **Network** — Select your home WiFi network from the dropdown and enter its password. If your network doesn't appear in the list, select **Other** and type the name in manually
+5. **Channel** — Enter your Are.na channel slug, the last part of the channel URL
    - Example: if your channel is `are.na/username/my-inspiration`, enter `my-inspiration`
-7. Choose the refresh behaviour
-8. Tap **Save**
-9. Optionally enter your [personal access token](https://www.are.na/settings/personal-access-tokens) if you're connecting a private channel 
+6. **Refresh & Order** — Choose how the frame cycles through content
 
----
+   | Refresh | Description |
+   |---------|-------------|
+   | Live | Displays new blocks as they arrive |
+   | 5 min – 24 hr | Cycles through existing blocks at the chosen interval |
 
-## Configuration Options
 
-| Setting | Description |
-|---------|-------------|
-| **Refresh** | How often to check for new content (Live, 5 min, 15 min, 30 min, 1 hr, 12 hr, 24 hr) |
-| **Order** | Display order when cycling through blocks (Random, Newest first, Oldest first) |
-| **Show Channel Name** | Display an overlay with the block name and channel info |
-| **Dark Mode** | Dark background for text blocks |
-| **Access Token** | Required for private channels — get yours at [dev.are.na](https://dev.are.na/oauth/applications) |
+
+7. **Display** — Toggle **Show Channel Name** to overlay the block title and channel info on the display, and **Dark Mode** for a dark background on text blocks
+8. **Advanced** — Optionally enter your [personal access token](https://www.are.na/settings/personal-access-tokens) if you're connecting to a private channel
+9. Tap **Save**
+10. Your first block should appear within a minute!
 
 ---
 
@@ -138,6 +150,10 @@ cd ~/arena-frame && git pull
 sudo systemctl restart arena-frame
 ```
 
+### Working with AI Coding Agents
+
+The repo includes an [`AGENT CONTEXT.md`](./AGENT%20CONTEXT.md) file that gives AI coding agents (Cursor, Copilot, Claude Code, etc.) the full picture of the project — architecture decisions, service layout, pin constraints, and extension points. Open or reference this file when starting an agent session to get useful, project-aware suggestions out of the box.
+
 ### Configuration File
 
 Settings are stored at `/etc/photoframe/config.json`:
@@ -197,12 +213,8 @@ Then connect to **ArenaFrame-Setup** to configure.
 
 **Private channel not working**
 - You need an access token for private channels
-- Get one at [dev.are.na](https://dev.are.na/oauth/applications)
+- Get one at [are.na/settings/personal-access-tokens](https://www.are.na/settings/personal-access-tokens)
 - Enter it in the Advanced section of the setup portal
-
-**Display shows old content**
-- Check logs: `sudo journalctl -u arena-frame -f`
-- Restart: `sudo systemctl restart arena-frame`
 
 ---
 
@@ -214,5 +226,5 @@ MIT — do whatever you want with it.
 
 ## Credits
 
-- Built for [Are.na](https://are.na)
+A project by kiran Scott de Martinville and [Are.na](https://are.na)
 - Display library by [Pimoroni](https://github.com/pimoroni/inky)
