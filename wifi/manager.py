@@ -68,11 +68,8 @@ def cleanup():
     run(["iptables", "-t", "nat", "-F"])
 
 
-def start_ap_mode():
-    log("Starting AP mode...")
-    cleanup()
-    time.sleep(2)
-
+def _bring_up_ap_interface():
+    """Configure the WiFi interface for AP mode. Returns True on success."""
     run(["ip", "link", "set", WIFI_INTERFACE, "down"])
     time.sleep(1)
     run(["iw", "dev", WIFI_INTERFACE, "set", "type", "__ap"])
@@ -82,15 +79,32 @@ def start_ap_mode():
     run(["ip", "addr", "add", f"{AP_IP}/24", "dev", WIFI_INTERFACE])
 
     result = run(["systemctl", "start", "hostapd"])
-    if result is None or result.returncode != 0:
-        log("ERROR: hostapd failed to start")
-        return False
+    return result is not None and result.returncode == 0
 
+
+AP_RETRIES = 3
+
+
+def start_ap_mode():
+    log("Starting AP mode...")
+    cleanup()
     time.sleep(2)
 
     country = get_country_code()
     run(["sed", "-i", f"s/country_code=.*/country_code={country}/",
          "/etc/hostapd/hostapd.conf"])
+
+    for attempt in range(AP_RETRIES):
+        if _bring_up_ap_interface():
+            break
+        log(f"hostapd failed (attempt {attempt + 1}/{AP_RETRIES}), retrying...")
+        cleanup()
+        time.sleep(5)
+    else:
+        log("ERROR: hostapd failed after all retries")
+        return False
+
+    time.sleep(2)
 
     run(["systemctl", "start", "dnsmasq"])
 
@@ -148,9 +162,27 @@ def trigger_reconnect():
     run(["systemctl", "start", "arena-reconnect"])
 
 
+def wait_for_wifi_hardware(max_wait=30):
+    """Block until the WiFi interface is available."""
+    log("Waiting for WiFi hardware...")
+    for i in range(max_wait):
+        result = run(["ip", "link", "show", WIFI_INTERFACE])
+        if result and result.returncode == 0:
+            log(f"WiFi interface {WIFI_INTERFACE} ready (after {i + 1}s)")
+            return True
+        time.sleep(1)
+    log(f"WiFi interface {WIFI_INTERFACE} not found after {max_wait}s")
+    return False
+
+
 def main():
     log("WiFi Manager starting...")
-    time.sleep(5)
+
+    if not wait_for_wifi_hardware():
+        log("No WiFi hardware detected, retrying after reboot delay...")
+        time.sleep(10)
+        if not wait_for_wifi_hardware():
+            log("WiFi hardware still not ready, proceeding anyway...")
 
     while True:
         if check_force_ap_mode():

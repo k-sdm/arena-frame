@@ -7,7 +7,7 @@ and error messages on the e-ink canvas.
 import sys
 import argparse
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 
 from config import CONTENT_DIR, load_config
 from sources.arena import get_channel_info
@@ -307,7 +307,7 @@ def display_content(content_path=None, error_message=None):
 
     # Determine content box height
     if low.endswith(SUPPORTED_IMAGE_EXTS):
-        src = Image.open(path).convert("RGB")
+        src = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
         top_box_h = calculate_image_box_height(
             src.width, src.height, top_box_w, L["min_box_height"], max_box_height
         )
