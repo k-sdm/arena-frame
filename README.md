@@ -25,18 +25,18 @@ To build a frame, you'll need the following components
 ### Setting up the software
 The easiest way to do this is to flash the premade image onto your SD card.
 
-### Step 1: Download the Image
+#### Step 1: Download the Image
 
 1. Go to [Releases](https://github.com/k-sdm/arena-frame/releases)
 2. Download `arenaframe.img.zip` (you don't need to unzip it)
 
-### Step 2: Install Raspberry Pi Imager
+#### Step 2: Install Raspberry Pi Imager
 
 1. Go to [raspberrypi.com/software](https://www.raspberrypi.com/software/)
 2. Download Raspberry Pi Imager for your computer (Mac, Windows, or Linux)
 3. Install and open it
 
-### Step 3: Flash the Image
+#### Step 3: Flash the Image
 
 1. Insert your MicroSD card into your computer
 2. In Raspberry Pi Imager, click **Choose Device** → select **Raspberry Pi Zero 2 W**
@@ -54,14 +54,14 @@ The easiest way to do this is to flash the premade image onto your SD card.
    |<a href="./images/PI_IMAGER_3.png"><img style="display: block; width: 450px;" src="./images/PI_IMAGER_3.png"/></a>|<a href="./images/PI_IMAGER_4.png"><img style="display: block; width: 450px;" src="./images/PI_IMAGER_4.png"/></a>|
 </details>
 
-### Step 4: Assemble and Power On
+#### Step 4: Assemble and Power On
 
 1. Insert the MicroSD card into your Raspberry Pi
 2. Connect the Inky Impression display to the GPIO pins
 3. Connect power via either micro USB port
 4. Wait about 60 seconds — the white LED on the display will start blinking
 
-### Step 5: Connect and Configure
+#### Step 5: Connect and Configure
 
 1. On your phone or laptop, open WiFi settings
 2. Connect to the network **ArenaFrame-Setup** (password: `arenaframe`)
