@@ -1,4 +1,5 @@
 # Arena Frame
+<a href="./images/BANNER.png"><img src="./images/BANNER.png" width="100%" /></a>
 
 Bring an Are.na channel into your space
 
@@ -7,18 +8,22 @@ Arena Frame is an open-source object that connects to [Are.na](https://are.na) a
 Revisit your visual references in a slower way, let your research surface throughout the day.
 Connect a shared channel with freinds and send each other virtual postcards. We're curious to see what you do with it!
 
+## Build your Frame
+
+### Shopping list
+To build a frame, you'll need the following components
+
+| Item | URL |
+| - | - |
+| Raspberry Pi Zero 2 W (with presoldered header pins) | [UK](https://shop.pimoroni.com/products/raspberry-pi-zero-2-w?variant=42101934587987) [US](https://www.pishop.us/product/raspberry-pi-zero-2w-with-headers/) |
+| Inky Impression display (available in 4", 7.3" and 13.3" flavours | [UK](https://shop.pimoroni.com/products/inky-impression?variant=55186435244411) [US](https://www.pishop.us/product/inky-impression-7-3-2025-edition/) |
+| MicroSD card (16GB or arger)  | [UK](https://thepihut.com/products/sandisk-microsd-card-class-10-a1) [US](https://www.pishop.us/product/class-10-microsd-card-32-gb-blank-retail/) |
+| 5V DC Micro USB power source (You might already have the bits for this around!) | [UK](https://shop.pimoroni.com/products/raspberry-pi-12-5w-micro-usb-power-supply?variant=39493050237011) [US](https://www.pishop.us/product/wall-adapter-power-supply-micro-usb-2-4a-5-25v) |
+
 ---
 
-## What You'll Need
-
-- Raspberry Pi Zero 2 W (ideally with presoldered header pins)
-- [Pimoroni Inky Impression](https://shop.pimoroni.com/products/inky-impression) (available in 4", 7.3" and 13.3" flavours)
-- MicroSD card (8GB or larger)
-- 5v DC Micro USB power source
-
----
-
-## Setup
+### Settng up the software
+The easiest way to do this is to flash the premade image onto your sd card!
 
 ### Step 1: Download the Image
 
