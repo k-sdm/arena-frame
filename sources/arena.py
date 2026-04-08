@@ -454,10 +454,21 @@ def _run_cycle_mode(slug, token, state, order):
                 return None, error
             print(f"Using stale cache ({len(blocks)} blocks)")
         else:
+            old_ids = {b["id"] for b in state.get("cached_blocks", [])}
+            new_ids = {b["id"] for b in blocks}
+
             state["cached_blocks"] = blocks
             state["last_cache_refresh"] = datetime.now().isoformat()
-            state["displayed_ids"] = []
-            state["cycle_index"] = 0
+
+            if old_ids != new_ids:
+                added = len(new_ids - old_ids)
+                removed = len(old_ids - new_ids)
+                print(f"Block list changed (+{added} -{removed}) - resetting cycle")
+                state["displayed_ids"] = []
+                state["cycle_index"] = 0
+            else:
+                print(f"Cache refreshed, block list unchanged - continuing cycle")
+
             print(f"Cached {len(blocks)} blocks")
     else:
         blocks = state.get("cached_blocks", [])
