@@ -92,9 +92,7 @@ def get_theme_colors(dark_mode):
 # ---------------------------------------------------------------------------
 
 def fit_center(image: Image.Image, box_w: int, box_h: int) -> Image.Image:
-    img = image.copy()
-    img.thumbnail((box_w, box_h), Image.LANCZOS)
-    return img
+    return ImageOps.contain(image, (box_w, box_h), Image.LANCZOS)
 
 
 def calculate_image_box_height(img_width, img_height, box_width, min_height, max_height):
