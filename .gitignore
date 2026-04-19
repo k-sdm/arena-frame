@@ -5,3 +5,5 @@ __pycache__/
 .DS_Store
 CLAUDE.md
 agent-tools/
+README_reference.md
+QUICK_START.md
